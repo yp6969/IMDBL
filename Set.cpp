@@ -7,7 +7,7 @@
 
 #include "Set.h"
 
-Set::Set(int& max_size , int& dim):max_size(max_size),set_size(0),elem(new MovieRate[max_size]){}
+Set::Set(int max_size , int dim):max_size(max_size),set_size(0),elem(new MovieRate*[max_size]){}
 
 
 
@@ -55,18 +55,18 @@ void Set::add(int dim, string& name, double*& coord) {
 	MovieRate* temp = new MovieRate(name , new Vector(dim , coord) );
 	int inx = isExist(temp->getName());
 	if(inx >= 0 && inx < max_size){  //in case of the movie is already exist
-		elemDstroy(elem+inx);
-		elem+inx(temp);
+		elemDstroy(elem[inx]);
+		elem[inx]= temp;
 	}
 	else{
-		elem+set_size = temp;
+		elem[set_size] = temp;
 		set_size++;
 	}
 }
 
 int Set::isExist(const string &name) const{
 	for(int i=0 ; i<set_size ; i++){
-		if(name == elem[i].getName())
+		if(name == elem[i]->getName())
 			return i;
 	}
 	return -1; //if not found
@@ -81,7 +81,7 @@ int Set::isExist(const string &name) const{
 		cerr<<"ERROR:"<<temp<<" does not exist"<<endl;
 		return NULL;
 	}
-	return elem+index;
+	return elem[index];
 }
 
 bool Set::isEmpty() const {
@@ -94,7 +94,7 @@ bool Set::isFull() const{
 
 void Set::printSet() const {
 	for(int i=0 ; i<set_size ; i++)
-		elem[i].print();
+		elem[i]->print();
 }
 
 void Set::elemDstroy(MovieRate* movie){
@@ -104,12 +104,12 @@ void Set::elemDstroy(MovieRate* movie){
 
 void Set::setDestroy() {
 	for(int i=0 ; i<set_size ; i++)
-		elemDstroy(elem+i);
+		elemDstroy(elem[i]);
 }
 
 void Set::summery(){
 	for(int i=0 ; i<set_size ; i++){
-		cout<<elem[i].getName()<<", "<<elem[i].average()<<endl;
+		cout<<elem[i]->getName()<<", "<<elem[i]->average()<<endl;
 	}
 }
 
@@ -118,7 +118,7 @@ Vector* Set::statistics(int dimantion) const{
 	double sum = 0;
 	for(int i=0 ; i<dimantion ; i++){
 		for(int j=0 ; j<set_size ; j++){
-			sum += elem[j].getRating(i);
+			sum += elem[j]->getRating(i);
 		}
 		avg->setCoordinate(i , sum/set_size);
 	}
@@ -132,7 +132,7 @@ void Set::covariance(int dimantion) const{
 	for(int i=0 ; i<dimantion ; i++){
 		for(int j=0 ; j<dimantion ; j++){
 			for(int k=1 ; k<set_size ; k++){
-				sum+=(elem[k].getRating(i) - u->getCoordinate(i))*(elem[k].getRating(j)- u->getCoordinate(j));
+				sum+=(elem[k]->getRating(i) - u->getCoordinate(i))*(elem[k]->getRating(j)- u->getCoordinate(j));
 			}
 			cout << setprecision(2) << sum;
 			if(j<dimantion-1) cout<<",";

@@ -12,7 +12,7 @@
 
 class Set {
 public:
-	Set(int& max_size , int& dim);
+	Set(int max_size , int dim);
 	bool getInput(int dimantion ); // get input of the
 	void add(int dim, string& name, double*& coord); //add element to the set
 	int isExist(const string &name) const;
@@ -30,7 +30,7 @@ public:
 
 	/* getters */
 	int getDimantion() const {
-		return elem->getDimantion();
+		return (*elem)->getDimantion();
 	}
 
 	const MovieRate& getElem(int i) const {
@@ -42,7 +42,7 @@ public:
 	}
 
 private:
-	MovieRate* elem; //array of elements
+	MovieRate** elem; //array of elements
 	int set_size;
 	int max_size; // max set size
 
