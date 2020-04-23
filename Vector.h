@@ -1,6 +1,8 @@
 /*
  * Vector.h
  *
+ * represent a generic vector
+ *
  *  Created on: 4 באפר׳ 2020
  *      Author:  Yair Pinhas
  */
@@ -11,18 +13,21 @@
 #include <stdlib.h>
 #include <string>
 #include <iomanip>
+#include <math.h>
 using namespace std;
 
 class Vector {
 public:
 	Vector(int dim);
-	Vector(int dim , double*& coord);
+	Vector(int dim , float*& coord);
 	Vector(const Vector* v);
-	double average() const;
+	~Vector(){
+	    delete[] coordinates;
+	}
+	float average() const; // return the average
 	void printVector() const; //print the vector
-	void destroy(); // free the memory
 
-	const double& getCoordinate(int i) const {
+	const float& getCoordinate(int i) const {
 		return coordinates[i];
 	}
 
@@ -30,13 +35,13 @@ public:
 		return dimantion;
 	}
 
-	void setCoordinate(int i , double d){
+	void setCoordinate(int i , float d){
 		coordinates[i] = d;
 	}
 
 private:
 	int dimantion;
-	double* coordinates;
+	float* coordinates;
 };
 
 

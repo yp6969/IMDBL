@@ -10,9 +10,9 @@
 MovieRate::MovieRate():name(),rate(NULL){}
 MovieRate::MovieRate(const string& name , Vector* v):name(name), rate(v){}
 
-MovieRate::MovieRate(MovieRate* other){
-	MovieRate(other->getName() , new Vector(other->getRate()));
-}
+//MovieRate::MovieRate(MovieRate* other){
+//	MovieRate(other->getName() , new Vector(other->getRate()));
+//}
 
 //MovieRate& operator=(const MovieRate& other) {
 //  if (this != &other) {  // protect against invalid self-assignment
@@ -37,11 +37,6 @@ void MovieRate::print() const {
 	rate->printVector();
 }
 
-double MovieRate::average() const {
+float MovieRate::average() const {
 	return rate->average();
-}
-
-void MovieRate::destroy() {
-	rate->destroy();
-	delete rate;
 }

@@ -4,31 +4,33 @@
  * implement a movie rating
  * holds vector of rating
  *
- *  Created on: 4 áàôø× 2020
+ *  Created on: 4 ï¿½ï¿½ï¿½ï¿½ï¿½ 2020
  *      Author: Pinhas
  */
 
 #ifndef MOVIERATE_H_
 #define MOVIERATE_H_
 #include "Vector.h"
-
 #define MAX_NAME 32
+
 
 class MovieRate {
 public:
 	MovieRate();
 	MovieRate(const string& name ,  Vector* v );
 	MovieRate(MovieRate* other);
-	void print() const;
-	double average() const;
-	void destroy();
+	~MovieRate(){
+	    delete rate;
+	}
+	void print() const; // print the vector
+	float average() const; // return the avereg of the coordinates
 
 	/* getters */
 	int getDimantion() const {
 		return rate->getDimantion();
 	}
 
-	const double& getRating(int i) const{
+	const float& getRating(int i) const{
 		return rate->getCoordinate(i);
 	}
 
